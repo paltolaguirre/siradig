@@ -39,7 +39,7 @@ var routes = Routes{
 		"/api/siradig/siradigs",
 		SiradigList,
 	},
-	/*Route{
+	Route{
 		"SiradigShow",
 		"GET",
 		"/api/siradig/siradigs/{id}",
@@ -62,5 +62,11 @@ var routes = Routes{
 		"DELETE",
 		"/api/siradig/siradigs/{id}",
 		SiradigRemove,
-	},*/
+	},
+	Route{
+		"SiradigRemoveMasivo",
+		"DELETE",
+		"/api/siradig/siradigs",
+		SiradigRemoveMasivo,
+	},
 }
