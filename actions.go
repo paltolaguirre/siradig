@@ -35,7 +35,8 @@ func SiradigList(w http.ResponseWriter, r *http.Request) {
 		defer conexionBD.CerrarDB(db)
 		var siradigs []structSiradig.Siradig
 
-		db.Find(&siradigs)
+		//Autocompleta la información básica de Legajo, si quiero autocompletar un substruct de Legajo (Hijos por ejemplo) se pone Legajo.Hijos
+		db.Preload("Legajo").Find(&siradigs)
 		framework.RespondJSON(w, http.StatusOK, siradigs)
 
 	}
