@@ -90,12 +90,24 @@ func SiradigAdd(w http.ResponseWriter, r *http.Request) {
 		db := conexionBD.ObtenerDB(tenant)
 		defer conexionBD.CerrarDB(db)
 
-		if err := db.Create(&siradig_data).Error; err != nil {
-			framework.RespondError(w, http.StatusInternalServerError, err.Error())
-			return
-		}
+		if canInsertUpdate(&siradig_data, db) {
 
-		framework.RespondJSON(w, http.StatusCreated, siradig_data)
+			for i := 0; i < len(siradig_data.Detallecargofamiliarsiradig); i++ {
+				if siradig_data.Detallecargofamiliarsiradig[i].Montoanual == nil {
+					*siradig_data.Detallecargofamiliarsiradig[i].Montoanual = 0
+				}
+			}
+
+			if err := db.Create(&siradig_data).Error; err != nil {
+				framework.RespondError(w, http.StatusInternalServerError, err.Error())
+				return
+			}
+
+			framework.RespondJSON(w, http.StatusCreated, siradig_data)
+		} else {
+
+			framework.RespondError(w, http.StatusInternalServerError, "El Siradig que desea guardar, ya existe")
+		}
 	}
 
 }
@@ -136,12 +148,23 @@ func SiradigUpdate(w http.ResponseWriter, r *http.Request) {
 
 			defer conexionBD.CerrarDB(db)
 
-			if err := db.Save(&siradig_data).Error; err != nil {
-				framework.RespondError(w, http.StatusInternalServerError, err.Error())
-				return
-			}
+			if canInsertUpdate(&siradig_data, db) {
 
-			framework.RespondJSON(w, http.StatusOK, siradig_data)
+				for i := 0; i < len(siradig_data.Detallecargofamiliarsiradig); i++ {
+					if siradig_data.Detallecargofamiliarsiradig[i].Montoanual == nil {
+						*siradig_data.Detallecargofamiliarsiradig[i].Montoanual = 0
+					}
+				}
+
+				if err := db.Save(&siradig_data).Error; err != nil {
+					framework.RespondError(w, http.StatusInternalServerError, err.Error())
+					return
+				}
+
+				framework.RespondJSON(w, http.StatusOK, siradig_data)
+			} else {
+				framework.RespondError(w, http.StatusInternalServerError, "El Siradig que desea guardar, ya existe")
+			}
 
 		} else {
 			framework.RespondError(w, http.StatusNotFound, framework.IdParametroDistintoStruct)
@@ -149,6 +172,15 @@ func SiradigUpdate(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+}
+
+func canInsertUpdate(siradig *structSiradig.Siradig, db *gorm.DB) bool {
+	var siradigBD structSiradig.Siradig
+	existeSiradig := true
+	if err := db.First(&siradigBD, "periodosiradig = ? AND legajoid = ?", siradig.Periodosiradig, siradig.Legajoid).Error; gorm.IsRecordNotFoundError(err) {
+		existeSiradig = false
+	}
+	return existeSiradig
 }
 
 func SiradigRemove(w http.ResponseWriter, r *http.Request) {
