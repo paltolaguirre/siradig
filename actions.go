@@ -89,12 +89,12 @@ func SiradigAdd(w http.ResponseWriter, r *http.Request) {
 		tenant := apiclientautenticacion.ObtenerTenant(tokenAutenticacion)
 		db := conexionBD.ObtenerDB(tenant)
 		defer conexionBD.CerrarDB(db)
-
+		cero, _ := strconv.ParseFloat("0", 64)
 		if canInsertUpdate(&siradig_data, db) {
 
 			for i := 0; i < len(siradig_data.Detallecargofamiliarsiradig); i++ {
 				if siradig_data.Detallecargofamiliarsiradig[i].Montoanual == nil {
-					*siradig_data.Detallecargofamiliarsiradig[i].Montoanual = 0
+					siradig_data.Detallecargofamiliarsiradig[i].Montoanual = &cero
 				}
 			}
 
@@ -147,12 +147,12 @@ func SiradigUpdate(w http.ResponseWriter, r *http.Request) {
 			db := conexionBD.ObtenerDB(tenant)
 
 			defer conexionBD.CerrarDB(db)
-
+			cero, _ := strconv.ParseFloat("0", 64)
 			if canInsertUpdate(&siradig_data, db) {
 
 				for i := 0; i < len(siradig_data.Detallecargofamiliarsiradig); i++ {
 					if siradig_data.Detallecargofamiliarsiradig[i].Montoanual == nil {
-						*siradig_data.Detallecargofamiliarsiradig[i].Montoanual = 0
+						siradig_data.Detallecargofamiliarsiradig[i].Montoanual = &cero
 					}
 				}
 
@@ -175,12 +175,16 @@ func SiradigUpdate(w http.ResponseWriter, r *http.Request) {
 }
 
 func canInsertUpdate(siradig *structSiradig.Siradig, db *gorm.DB) bool {
-	var siradigBD structSiradig.Siradig
-	existeSiradig := true
-	if err := db.First(&siradigBD, "periodosiradig = ? AND legajoid = ?", siradig.Periodosiradig, siradig.Legajoid).Error; gorm.IsRecordNotFoundError(err) {
-		existeSiradig = false
+	var idSiradig int
+	caninsertupdate := true
+	periodosiradiganio := siradig.Periodosiradig.Year()
+	periodosiradigmes := siradig.Periodosiradig.Format("01")
+	sql := "SELECT id FROM siradig WHERE legajoid = " + strconv.Itoa(*siradig.Legajoid) + " AND to_char(periodosiradig, 'MM') = '" + periodosiradigmes + "' AND to_char(periodosiradig, 'YYYY') = '" + strconv.Itoa(periodosiradiganio) + "'"
+	db.Raw(sql).Row().Scan(&idSiradig)
+	if idSiradig != 0 {
+		caninsertupdate = false
 	}
-	return existeSiradig
+	return caninsertupdate
 }
 
 func SiradigRemove(w http.ResponseWriter, r *http.Request) {
