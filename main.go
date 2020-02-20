@@ -14,7 +14,7 @@ func main() {
 	router := newRouter()
 
 	server := http.ListenAndServe(":"+configuracion.Puertomicroserviciosiradig, router)
-	fmt.Println("Microservicio de Concepto escuchando en el puerto: " + configuracion.Puertomicroserviciosiradig)
+	fmt.Println("Microservicio de Siradig escuchando en el puerto: " + configuracion.Puertomicroserviciosiradig)
 	log.Fatal(server)
 
 }
