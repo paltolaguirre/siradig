@@ -179,7 +179,7 @@ func canInsertUpdate(siradig *structSiradig.Siradig, db *gorm.DB) bool {
 	caninsertupdate := true
 	periodosiradiganio := siradig.Periodosiradig.Year()
 	periodosiradigmes := siradig.Periodosiradig.Format("01")
-	sql := "SELECT id FROM siradig WHERE legajoid = " + strconv.Itoa(*siradig.Legajoid) + " AND to_char(periodosiradig, 'MM') = '" + periodosiradigmes + "' AND to_char(periodosiradig, 'YYYY') = '" + strconv.Itoa(periodosiradiganio) + "'"
+	sql := "SELECT id FROM siradig WHERE legajoid = " + strconv.Itoa(*siradig.Legajoid) + " AND to_char(periodosiradig, 'MM') = '" + periodosiradigmes + "' AND to_char(periodosiradig, 'YYYY') = '" + strconv.Itoa(periodosiradiganio) + "' AND siradig.ID != " + strconv.Itoa(siradig.ID)
 	db.Raw(sql).Row().Scan(&idSiradig)
 	if idSiradig != 0 {
 		caninsertupdate = false
