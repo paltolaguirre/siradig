@@ -97,6 +97,8 @@ github.com/xubiosueldos/conexionBD v0.0.0-20200121135427-21ff5d652690/go.mod h1:
 github.com/xubiosueldos/conexionBD v0.0.0-20200425212538-71d07b58812a/go.mod h1:HMSOQVG2yGtw7o43PspUrFkitZsTDdgJU7TGjwmeO6c=
 github.com/xubiosueldos/conexionBD v1.1.0 h1:mJLV7i8gD9uv5gYRXmb8gLcjdxKFgCBEBnRt0pvp8kE=
 github.com/xubiosueldos/conexionBD v1.1.0/go.mod h1:Jell2FlFWDra4zI6dathXPqcatbAQIb0peDOCtsGp3c=
+github.com/xubiosueldos/conexionBD v1.2.3 h1:wXxmoHBu/siR/F8t9N/tA2H9QQKI0CERixNy4gKaYe4=
+github.com/xubiosueldos/conexionBD v1.2.3/go.mod h1:CyQFrukeZ6Kn4udwJehPtc7BsG25kV4M/saT0agh4YM=
 github.com/xubiosueldos/framework v0.0.0-20190923130327-27a81bc804ce/go.mod h1:Atdymo+Iri+Mn8+VPhqIyb6dW/S/q3xPgobPRPBirzs=
 github.com/xubiosueldos/framework v0.0.0-20191002111857-52b12ef56c62 h1:39700bnGzWF139TDjBPFLMICs+1Tk306RVSjp1KCkEw=
 github.com/xubiosueldos/framework v0.0.0-20191002111857-52b12ef56c62/go.mod h1:YpPF+hDR5I/7906gpS7Tjz+/wJX5KJCVyUDAWXeeOds=
@@ -106,6 +108,8 @@ github.com/xubiosueldos/framework v0.0.0-20200212144413-988f52a640e7/go.mod h1:Y
 github.com/xubiosueldos/framework v0.0.0-20200327232331-2ef9abb83842/go.mod h1:YpPF+hDR5I/7906gpS7Tjz+/wJX5KJCVyUDAWXeeOds=
 github.com/xubiosueldos/framework v1.1.0 h1:RdrKnheN0osTOap2petNbO3ZWn2vJol3dGEUDlFAEdE=
 github.com/xubiosueldos/framework v1.1.0/go.mod h1:YpPF+hDR5I/7906gpS7Tjz+/wJX5KJCVyUDAWXeeOds=
+github.com/xubiosueldos/framework v1.1.2 h1:ubFEFjlBw/dGPaskLVDbTzL8S+wpA6ciqu+LlS8ojDY=
+github.com/xubiosueldos/framework v1.1.2/go.mod h1:qMR+Nv+a9YDVXR50/CIZrjVT784I6v1NyCACLesWOXw=
 github.com/xubiosueldos/monoliticComunication v0.0.0-20191028102914-d680e5cb199d/go.mod h1:rhoyyFWO4tT6TbieNOMviu8wJH6QqH0p2hSVQWCL4/U=
 go.opencensus.io v0.20.1/go.mod h1:6WKK9ahsWS3RSO+PY9ZHZUfv2irvY6gN279GOPZjmmk=
 golang.org/x/crypto v0.0.0-20180904163835-0709b304e793/go.mod h1:6SG95UA2DQfeDnfUPMdvaQW0Q7yPrPDi9nlGo2tz2b4=
